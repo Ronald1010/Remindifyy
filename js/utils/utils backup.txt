@@ -3,13 +3,10 @@ import { setRouter } from "../router/router.js";
 // Set Router
 setRouter();
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Your code that interacts with DOM elements by their IDs goes here
-  getLoggedUser();
-});
-
 // Backend URL
 const backendURL = "http://backend.test";
+// const backendURL =
+//   "https://2b01-2a09-bac1-5aa0-00-278-55.ngrok-free.app/backend/public";
 
 // Get Logged User Profile
 async function getLoggedUser() {
@@ -31,12 +28,8 @@ async function getLoggedUser() {
     const userData = await response.json();
 
     // Update HTML element with user's full name
-    const userLoggedSpan = document.getElementById("user_logged_span");
-    if (userLoggedSpan) {
-      userLoggedSpan.textContent = userData.firstname + " " + userData.lastname;
-    } else {
-      console.error("Element with ID 'user_logged_span' not found");
-    }
+    document.getElementById("user_logged").innerHTML =
+      userData.firstname + " " + userData.lastname;
 
     // Display the user image if the 'image' property exists in the response data
     if (userData.image) {
@@ -49,20 +42,14 @@ async function getLoggedUser() {
 
       // Clear existing content before appending new image
       const imageContainer = document.getElementById("user_image");
-      if (imageContainer) {
-        imageContainer.innerHTML = "";
-        imageContainer.appendChild(imageElement);
-      } else {
-        console.error("Element with ID 'user_image' not found");
-      }
+      imageContainer.innerHTML = "";
+      imageContainer.appendChild(imageElement);
     }
 
     // If the element with ID "user_id" exists, set its value to the user's ID
     const userIdElement = document.getElementById("user_id");
     if (userIdElement) {
       userIdElement.value = userData.id;
-    } else {
-      console.error("Element with ID 'user_id' not found");
     }
   } catch (error) {
     console.error("Error fetching user data:", error);

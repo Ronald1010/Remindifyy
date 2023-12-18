@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await updateTaskWithMethodSpoofing(id, updatedTask, "PUT"); // Use method spoofing for the update
       console.log("Task updated successfully!");
+
       modal.hide();
     } catch (error) {
       console.error("Error updating task:", error);
@@ -269,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // CREATE CARD
 function createCard(element) {
   const itemDiv = document.createElement("div");
-  itemDiv.classList.add("col-sm-4", "pb-5");
+  itemDiv.classList.add("col-sm-4", "pb-5", "lg-3");
 
   const timestamp = Date.parse(element.created_at);
 
@@ -287,10 +288,8 @@ function createCard(element) {
     const formattedDate = date.toLocaleDateString("en-US", options);
 
     const cardContent = `
-    
       <div class="card" data-task-id="${element.id}">
-  
-        <div class="card-body " >
+        <div class="card-body">
           <div class="row align-items-center pb-3">
             <div class="col">
               <small>${formattedDate}</small>
@@ -341,60 +340,94 @@ function createCard(element) {
                 </a>
             </div>
           </div>
-          
-          
           ${
             element.image_path && element.image_path.trim() !== ""
               ? `<img src="${backendURL}/storage/${element.image_path}" width="100%" />`
               : ""
           }
-
           <h5 class="card-title py-3">${element.task_name}</h5>
           <p class="card-text">${element.description}</p>
+          <br>
+          ${
+            element.deadline_date && element.deadline_time
+              ? `<div class="float-end">Due Date: ${element.deadline_date} ${element.deadline_time}</div><br>`
+              : ""
+          }
         </div>
       </div>`;
 
     itemDiv.innerHTML = cardContent;
 
+    // DELETE Button and CLEAR FORM MODAL code...
     // DELETE Button
-    // Add event listener for delete action to the SVG element
     const deleteButton = itemDiv.querySelector(".bi-trash3-fill");
-    deleteButton.addEventListener("click", async (event) => {
-      event.preventDefault();
-      const taskId = event.target.closest(".card").dataset.taskId; // Access dataset task ID
+    if (deleteButton) {
+      deleteButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        const taskId = event.target.closest(".card").dataset.taskId;
 
-      try {
-        const confirmed = confirm("Are you sure you want to delete this task?");
-        if (confirmed) {
-          await deleteTask(taskId);
-          // Optionally, you can remove the deleted task from the UI here
-          event.target.closest(".card").remove(); // Remove the card from the DOM
-          successNotification("Task deleted successfully");
+        try {
+          const confirmed = confirm(
+            "Are you sure you want to delete this task?"
+          );
+          if (confirmed) {
+            await deleteTask(taskId);
+            event.target.closest(".card").remove();
+            successNotification("Task deleted successfully");
+          }
+        } catch (error) {
+          console.error("Error deleting task:", error);
+          errorNotification("Error deleting task");
         }
-      } catch (error) {
-        console.error("Error deleting task:", error);
-        errorNotification("Error deleting task");
-      }
-    });
+      });
+    }
 
     // CLEAR FORM MODAL
     const creationModal = document.getElementById("form_modal");
-    creationModal.addEventListener("show.bs.modal", function (event) {
-      // Clear the input field values
-      document.getElementById("task_name").value = "";
-      document.getElementById("description").value = "";
+    if (creationModal) {
+      creationModal.addEventListener("show.bs.modal", function (event) {
+        const taskNameInput = document.getElementById("task_name");
+        const descriptionInput = document.getElementById("description");
 
-      // Remove the green background from the fields if it was applied
-      document.getElementById("task_name").classList.remove("green-background");
-      document
-        .getElementById("description")
-        .classList.remove("green-background");
-    });
+        if (taskNameInput && descriptionInput) {
+          taskNameInput.value = "";
+          descriptionInput.value = "";
+          taskNameInput.classList.remove("green-background");
+          descriptionInput.classList.remove("green-background");
+        }
+      });
+    }
+  }
+  // DUEDATE NOTIFICATION
+  if (element.deadline_date && element.deadline_time) {
+    const dueDateTime = new Date(
+      `${element.deadline_date}T${element.deadline_time}`
+    );
+    const timeDifference = dueDateTime.getTime() - Date.now(); // Get time difference in milliseconds
+
+    const threshold = 60 * 1000; // Threshold set to one minute (60 seconds) before the due date
+
+    if (timeDifference > 0 && timeDifference <= threshold) {
+      showPopupNotification(element.task_name, timeDifference);
+    }
   }
 
   return itemDiv;
 }
 
+// Function to show the notification// Function to show the popup notification
+function showPopupNotification(taskName, timeDifference) {
+  const secondsRemaining = Math.floor(timeDifference / 1000);
+  const popupMessage = `Upcoming Task: ${taskName}\nDue in ${secondsRemaining} second${
+    secondsRemaining !== 1 ? "s" : ""
+  }.`;
+
+  // Show the popup notification using JavaScript's alert function
+  alert(popupMessage);
+}
+
+//
+//
 function displayData(data) {
   const getDataDiv = document.getElementById("get_data");
   getDataDiv.innerHTML = "";

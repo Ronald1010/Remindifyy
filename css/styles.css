@@ -4390,6 +4390,7 @@ fieldset:disabled .btn {
 }
 
 .card {
+  border-radius: 10px;
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
   --bs-card-title-spacer-y: 0.5rem;
@@ -4468,7 +4469,7 @@ fieldset:disabled .btn {
   padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
   margin-bottom: 0;
   color: var(--bs-card-cap-color);
-  background-color: var(--bs-card-cap-bg);
+  background-color: rgb(167, 118, 185);
   border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 .card-header:first-child {
@@ -11303,7 +11304,7 @@ body {
   min-width: 0;
 }
 #layoutSidenav #sidenavAccordion {
-  background-color: rgb(167, 118, 185);
+  background-color: rgb(222, 195, 232);
 }
 #layoutSidenav {
   display: flex;
@@ -11406,7 +11407,7 @@ body {
   padding-left: 0;
   height: 56px;
   z-index: 1039;
-  background-color:  rgb(167, 118, 185);
+  background-color: rgb(167, 118, 185);
 }
 .sb-topnav .navbar-brand {
   width: 225px;
@@ -11691,4 +11692,21 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
+}
+
+#layoutAuthentication #layoutAuthentication_content {
+  background-image: url(/assets/gif/4RNk.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: rgb(222, 195, 232);
+  background-blend-mode: soft-light;
+}
+
+#loginbutton {
+  background-color: rgb(167, 118, 185);
+}
+#cardbody {
+  border-radius: 10px;
 }

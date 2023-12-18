@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // CREATE CARD
 function createCard(element) {
   const itemDiv = document.createElement("div");
-  itemDiv.classList.add("col-sm-4", "pb-5", "xs-6");
+  itemDiv.classList.add("col-sm-4", "pb-5", "lg-6");
 
   const timestamp = Date.parse(element.created_at);
 

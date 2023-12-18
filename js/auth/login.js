@@ -21,7 +21,8 @@ form_login.onsubmit = async (e) => {
   // Get Values of Form (input, textarea, select) set it as form-data
   const formData = new FormData(form_login);
 
-  // Fetch API User Login Endpoint
+  // ...
+
   const response = await fetch(backendURL + "/api/login", {
     method: "POST",
     headers: {
@@ -34,8 +35,9 @@ form_login.onsubmit = async (e) => {
   if (response.ok) {
     const json = await response.json();
 
-    // Store Token
+    // Store Token and User ID
     localStorage.setItem("token", json.token);
+    localStorage.setItem("userId", json.user.id); // Update to extract the user ID from 'json.user.id'
 
     form_login.reset();
 

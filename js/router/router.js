@@ -5,13 +5,14 @@ function setRouter() {
     case "/index.html":
     case "/register.html":
       if (localStorage.getItem("token")) {
-        window.location.pathname = "/test.html";
+        window.location.pathname = "/";
       }
       break;
     // If you are not logged in you cant access dashboard pages; redirect to /
     case "/test.html":
       if (!localStorage.getItem("token")) {
-        window.location.pathname = "/";
+        window.location.pathname = "/test.html";
+        window.location.pathname = "/profile.html";
       }
       break;
 

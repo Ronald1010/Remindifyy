@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Remindify</title>
+
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/profile.css" rel="stylesheet" />
+
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="js/system/dashboard.js"></script>
+    <script src="js/utils/scripts.js" defer></script>
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script type="module" src="/js/system/profile.js"></script>
+  </head>
+  <!-- Notifications -->
+  <div class="alert alert-success d-none" role="alert"></div>
+  <div class="alert alert-danger d-none" role="alert"></div>
+  <!-- BODY -->
+
+  <body class="sb-nav-fixed">
+    <!-- Top Navigation -->
+    <nav class="sb-topnav navbar navbar-expand">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3 text-white" href="test.html">REMINDIFY</a>
+      <!-- Sidebar Toggle-->
+
+      <!-- Navbar Search-->
+      <form
+        class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
+      ></form>
+      <!-- Navbar-->
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ><i class="fas fa-user fa-fw text-white"></i
+          ></a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdown"
+          >
+            <!-- <li><hr class="dropdown-divider" /></li> -->
+            <li>
+              <a class="dropdown-item" href="#" id="btn_logout">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <button
+        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-white"
+        id="sidebarToggle"
+        href="#!"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- End of Top Navigation -->
+
+    <div id="layoutSidenav">
+      <!-- Side Navigation -->
+      <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion" id="sidenavAccordion">
+          <div class="sb-sidenav-menu text-white">
+            <div class="profileborder py-5">
+              <h6 class="text-center">WELCOME</h6>
+              <div id="user_image"><p id="user_logged"></p></div>
+              <div id="user_info">
+                <div class="row" id="span">
+                  <span id="user_logged_span"></span>
+                  <input type="hidden" id="user_id" />
+                </div>
+              </div>
+            </div>
+
+            <hr />
+            <div
+              class="sb-sidenav-menu-heading text-white text-center"
+              style="font-weight: bold"
+            >
+              Pages
+            </div>
+            <br />
+            <a class="nav-link px-4" href="test.html"> Home </a>
+            <a class="nav-link px-4" href="profile.html"> Profile </a>
+          </div>
+        </nav>
+      </div>
+      <!-- End of Side Navigation -->
+
+      <div id="layoutSidenav_content">
+        <main>
+          <!-- Content -->
+          <section class="vh-100">
+            <div class="container py-5 h-100">
+              <div
+                class="row d-flex justify-content-center align-items-center h-100"
+                id="mainrow"
+              >
+                <div class="col">
+                  <div class="container-xl px-4 mt-4">
+                    <!-- Account page navigation-->
+
+                    <div class="row">
+                      <div class="col-xl-4">
+                        <!-- Profile picture card-->
+                        <!-- Display the user image -->
+                        <div
+                          class="card mb-4 mb-xl-0"
+                          style="border-radius: 10px"
+                        >
+                          <div class="card-header">Profile Picture</div>
+                          <div class="card-body text-center">
+                            <!-- User profile picture -->
+                            <img
+                              id="profile_image"
+                              class="img-account-profile rounded-circle mb-2"
+                              src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                              alt="Profile Picture"
+                            />
+
+                            <!-- Profile picture help block -->
+                            <div class="small font-italic text-muted mb-4">
+                              JPG or PNG no larger than 5 MB
+                            </div>
+                            <div class="row">
+                              <div class="col-12">
+                                <input
+                                  class="px-5"
+                                  id="fileInput"
+                                  accept="image/*"
+                                  type="file"
+                                  minlength="8"
+                                />
+                              </div>
+                              <div class="col-12 px-5">
+                                <!-- Profile picture upload button -->
+                                <label for="fileInput" class="btn text-white">
+                                  Choose Image
+                                </label>
+                                <button
+                                  class="btn text-white"
+                                  type="submit"
+                                  id="button"
+                                  minlength="8"
+                                >
+                                  Upload Image
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-8">
+                        <!-- Account details card-->
+                        <div
+                          class="card mb-4 px-5 py-5"
+                          style="border-radius: 10px"
+                        >
+                          <div class="card-header">Account Details</div>
+                          <div class="card-body">
+                            <form id="updateform">
+                              <!-- Form Row-->
+                              <div class="row gx-3 mb-3">
+                                <!-- Form Group (first name) -->
+                                <div class="row gx-3 mb-3">
+                                  <div class="col-md-6">
+                                    <label
+                                      class="small mb-1"
+                                      style="font-style: italic"
+                                      >First name</label
+                                    >
+                                    <p
+                                      style="font-weight: bold"
+                                      id="first_name"
+                                    ></p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label
+                                      class="small mb-1"
+                                      style="font-style: italic"
+                                      >Last name</label
+                                    >
+                                    <p
+                                      style="font-weight: bold"
+                                      id="last_name"
+                                    ></p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Form Group (email address)-->
+                              <div class="mb-3">
+                                <label
+                                  class="small mb-1"
+                                  for="inputEmailAddress"
+                                  style="font-style: italic"
+                                  >Email address</label
+                                >
+                                <input
+                                  class="form-control"
+                                  id="email"
+                                  type="email"
+                                  placeholder="Enter your email address"
+                                />
+                              </div>
+
+                              <!-- PASSSWORD -->
+                              <div class="row mb-3">
+                                <!-- Form Group (Password)-->
+                                <div class="col-md-6">
+                                  <label
+                                    class="small mb-1"
+                                    for="inputFirstName"
+                                    style="font-style: italic"
+                                    >Password</label
+                                  >
+                                  <input
+                                    class="form-control"
+                                    id="password"
+                                    type="password"
+                                    placeholder="Password"
+                                  />
+                                </div>
+                                <!-- Form Group (last name)-->
+                                <div class="col-md-6">
+                                  <label
+                                    class="small mb-1"
+                                    for="inputLastName"
+                                    style="font-style: italic"
+                                    >Confirm Password</label
+                                  >
+                                  <input
+                                    class="form-control"
+                                    id="password_confirmation"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                  />
+                                </div>
+                              </div>
+
+                              <!-- Save changes button-->
+
+                              <div class="col-12 mx-5">
+                                <button
+                                  class="btn text-white text-center"
+                                  type="submit"
+                                  id="button"
+                                  style="justify-content: center"
+                                >
+                                  Save changes
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- End of Content -->
+        </main>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

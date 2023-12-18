@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         console.error("Error fetching task details:", error);
         errorNotification("Error fetching task details");
+
+        // Alert for error fetching task details
+        alert("Error fetching task details. Please try again.");
       }
     }
   });
@@ -89,16 +92,38 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      await updateTaskWithMethodSpoofing(id, updatedTask, "PUT"); // Use method spoofing for the update
+      await updateTaskWithMethodSpoofing(id, updatedTask, "PUT");
       console.log("Task updated successfully!");
 
       modal.hide();
+
+      // Fetch and display updated task details after hiding the modal
+      const taskDetails = await fetchTaskDetails(id);
+      updateTaskUI(id, taskDetails); // Update UI with the edited task
+
+      // Alert for successful update
+      alert("Task updated successfully!");
     } catch (error) {
       console.error("Error updating task:", error);
       // Handle error scenario
     }
   });
 
+  // Function to update task UI with edited details
+  function updateTaskUI(taskId, updatedDetails) {
+    const cardToUpdate = document.querySelector(`[data-task-id="${taskId}"]`);
+    if (cardToUpdate) {
+      // Update card content with the edited details
+      cardToUpdate.querySelector(".card-title").textContent =
+        updatedDetails.task_name;
+      cardToUpdate.querySelector(".card-text").textContent =
+        updatedDetails.description;
+
+      // Additional UI update logic for other elements as needed
+    } else {
+      console.error(`Card with ID ${taskId} not found`);
+    }
+  }
   // Function to update task data using method spoofing
   async function updateTaskWithMethodSpoofing(taskId, updatedTaskData, method) {
     try {
@@ -137,9 +162,37 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //
-//
+// CREATE FUNCTIONS
+// Define the 'modal' object or method to handle modal functionalities
+const modal = {
+  hide: function () {
+    // Implement hiding modal logic here
+    // For example:
+    const modalElement = document.getElementById("form_modal");
+    const modalBackdrop = document.querySelector(".modal-backdrop"); // Change this selector to match your modal's backdrop/overlay
+
+    if (modalElement && modalBackdrop) {
+      modalElement.style.display = "none";
+      modalBackdrop.style.display = "none";
+
+      // Restore body overflow and remove the class that might prevent scrolling
+      document.body.style.overflow = "auto";
+      document.body.classList.remove("modal-open");
+    } else if (modalElement) {
+      modalElement.style.display = "none";
+
+      // Restore body overflow and remove the class that might prevent scrolling
+      document.body.style.overflow = "auto";
+      document.body.classList.remove("modal-open");
+    } else {
+      console.error("Modal element not found");
+    }
+  },
+};
+
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("form_tasks");
+  const form = document.getElementById("form_modal");
+  const taskList = document.getElementById("get_data");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent the default form submission
@@ -147,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const taskName = document.getElementById("task_name").value;
       const description = document.getElementById("description").value;
-      const image = document.querySelector("#image_path").files[0]; // Use # for ID selector
+      const image = document.querySelector("#image_path").files[0];
       const deadlineDate = document.getElementById("deadline_date").value;
       const deadlineTime = document.getElementById("deadline_time").value;
 
@@ -163,15 +216,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const createdTask = await createTask(data);
       console.log("Task created:", createdTask);
 
-      form.reset(); // Reset the form after successful submission
+      modal.hide(); // Hide the modal
+
+      alert("Task created successfully!");
 
       successNotification("Task created successfully");
 
-      // Store the created task ID
       storeTaskId(createdTask.id);
+
+      const newCard = createCard(createdTask);
+      taskList.appendChild(newCard);
     } catch (error) {
       console.error("Error storing task:", error);
       errorNotification("Failed to create task");
+
+      modal.hide(); // Hide the modal
+
+      alert("Failed to create task. Please try again.");
     }
   });
 });
@@ -267,10 +328,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// CREATE CARD
+//CREATING CARDS
 function createCard(element) {
   const itemDiv = document.createElement("div");
-  itemDiv.classList.add("col-sm-4", "pb-5", "lg-3");
+  itemDiv.classList.add("col-sm-4", "pb-5", "lg-6");
 
   const timestamp = Date.parse(element.created_at);
 
