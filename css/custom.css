@@ -1,0 +1,71 @@
+/* tasks CSS */
+#main {
+  border-radius: 10px;
+  background-color: rgb(222, 195, 232);
+}
+
+body {
+  background-image: url(/assets/gif/4RNk.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: rgb(222, 195, 232);
+  background-blend-mode: soft-light;
+}
+#title {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+/* floating Button */
+.floating-btn {
+  position: fixed;
+  bottom: 20px; /* Adjust the distance from the bottom */
+  right: 150px; /* Adjust the distance from the right */
+  z-index: 999; /* Set z-index to ensure it appears on top of other content */
+}
+
+/* Hover effect */
+.floating-btn:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* card-container */
+
+/* navbar */
+#user_image img {
+  width: 150px;
+
+  margin-left: 30px;
+  border-radius: 20px;
+  border: 2px solid white;
+}
+#span {
+  margin-left: 10px;
+  font-weight: bold;
+
+  margin-top: 10px;
+}
+#span #user_logged {
+  color: rgb(255, 255, 255);
+}
+/* search button */
+#btnsearch {
+  background-color: rgb(167, 118, 185);
+}
+
+#get_data .card {
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+  background-color: rgb(255, 255, 252);
+}
+
+#get_data .card img {
+  border-radius: 20px;
+  border: 3px solid rgb(113, 44, 136);
+}
+
+/* .profileborder {
+  border: 1px solid white;
+
+} */

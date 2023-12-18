@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Remindify</title>
+
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="js/system/dashboard.js"></script>
+    <script src="js/utils/scripts.js" defer></script>
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script type="module" src="/js/system/test.js"></script>
+  </head>
+
+  <!-- BODY -->
+
+  <body class="sb-nav-fixed">
+    <!-- Top Navigation -->
+    <nav class="sb-topnav navbar navbar-expand">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3 text-white" href="test.html">REMINDIFY</a>
+      <!-- Sidebar Toggle-->
+
+      <!-- Navbar Search-->
+      <form
+        class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
+      ></form>
+      <!-- Navbar-->
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ><i class="fas fa-user fa-fw text-white"></i
+          ></a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdown"
+          >
+            <!-- <li><hr class="dropdown-divider" /></li> -->
+            <li>
+              <a class="dropdown-item" href="#" id="btn_logout">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <button
+        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-white"
+        id="sidebarToggle"
+        href="#!"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    <!-- End of Top Navigation -->
+
+    <div id="layoutSidenav">
+      <!-- Side Navigation -->
+      <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion" id="sidenavAccordion">
+          <div class="sb-sidenav-menu text-white">
+            <hr />
+            <div class="profileborder py-3">
+              <div id="user_image"><p id="user_logged"></p></div>
+              <div id="user_info">
+                <div class="row" id="span">
+                  <span>Logged in as: <span id="user_logged"></span></span>
+                  <input type="hidden" id="user_id" />
+                </div>
+              </div>
+            </div>
+
+            <hr />
+          </div>
+        </nav>
+      </div>
+      <!-- End of Side Navigation -->
+
+      <div id="layoutSidenav_content">
+        <main>
+          <!-- Content -->
+          <section class="vh-100">
+            <div class="container py-5 h-100">
+              <div
+                class="row d-flex justify-content-center align-items-center h-100"
+              >
+                <div class="col">
+                  <div class="card" id="list1" style="border-radius: 0.75rem">
+                    <div class="card-body py-4 px-4 px-md-5" id="main">
+                      <div class="row">
+                        <!-- Modal Btn and Form -->
+                        <div class="col-sm-12">
+                          <!-- Modal -->
+                          <div class="col-sm-12 pb-5">
+                            <div id="headerimg"></div>
+                          </div>
+                          <div class="col-sm-12 py-2">
+                            <h1
+                              class="text-center text-white"
+                              style="font-weight: bold"
+                              id="title"
+                            >
+                              REMINDIFY
+                            </h1>
+                          </div>
+                          <!--Create Modal -->
+                          <div
+                            class="modal fade"
+                            id="form_modal"
+                            data-bs-backdrop="static"
+                            data-bs-keyboard="false"
+                            tabindex="-1"
+                            aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"
+                            data-task-id="id"
+                          >
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1
+                                    class="modal-title fs-5"
+                                    id="staticBackdropLabel"
+                                  >
+                                    Add Notes
+                                  </h1>
+                                  <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
+                                </div>
+
+                                <form id="form_tasks">
+                                  <!-- Modal Body -->
+                                  <div class="modal-body">
+                                    <!-- User Id Field -->
+                                    <input
+                                      type="hidden"
+                                      id="id"
+                                      name="id"
+                                      value=""
+                                    />
+                                    <!-- Notes Name Field -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-12">
+                                        <input
+                                          class="form-control"
+                                          type="text"
+                                          name="task_name"
+                                          id="task_name"
+                                          placeholder="Notes Name"
+                                          style="font-weight: bold"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <!-- Description Field -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-12">
+                                        <textarea
+                                          class="form-control"
+                                          name="description"
+                                          id="description"
+                                          placeholder="Description"
+                                          rows="12"
+                                        ></textarea>
+                                      </div>
+                                    </div>
+
+                                    <!-- Image File Field -->
+                                    <div class="row mb-3">
+                                      <div class="col">
+                                        <input
+                                          class="form-control"
+                                          type="file"
+                                          name="image_path"
+                                          id="image_path"
+                                          accept="image/*"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="row pt-5 pb-2">
+                                      <div class="col">
+                                        <h5>Set Reminder</h5>
+                                      </div>
+                                    </div>
+                                    <hr />
+                                    <!-- Deadline Date and Time Fields -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-6">
+                                        <input
+                                          class="form-control"
+                                          type="date"
+                                          name="deadline_date"
+                                          id="deadline_date"
+                                        />
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <input
+                                          class="form-control"
+                                          type="time"
+                                          name="deadline_time"
+                                          id="deadline_time"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- Modal Footer -->
+                                  <div class="modal-footer">
+                                    <button
+                                      id="modal_close"
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      Close
+                                    </button>
+                                    <button
+                                      class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                                      type="submit"
+                                      id="submitBtn"
+                                    >
+                                      Add
+                                    </button>
+                                  </div>
+                                </form>
+                                <!-- End Slides Form -->
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End Modal -->
+                          <!-- S E C O N D MODAL -->
+                          <div
+                            class="modal fade"
+                            id="modal_edit"
+                            data-bs-backdrop="static"
+                            data-bs-keyboard="false"
+                            tabindex="-1"
+                            aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"
+                            data-task-id="id"
+                          >
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1
+                                    class="modal-title fs-5"
+                                    id="staticBackdropLabel"
+                                  >
+                                    EDIT NOTES
+                                  </h1>
+                                  <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
+                                </div>
+
+                                <form id="modal_form">
+                                  <!-- Modal Body -->
+                                  <div class="modal-body">
+                                    <!-- User Id Field -->
+                                    <input
+                                      type="hidden"
+                                      id="id"
+                                      name="id"
+                                      value=""
+                                    />
+                                    <!-- Notes Name Field -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-12">
+                                        <input
+                                          class="form-control"
+                                          type="text"
+                                          name="task_name"
+                                          id="task_name"
+                                          placeholder="Notes Name"
+                                          style="font-weight: bold"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <!-- Description Field -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-12">
+                                        <textarea
+                                          class="form-control"
+                                          name="description"
+                                          id="description"
+                                          placeholder="Description"
+                                          rows="12"
+                                        ></textarea>
+                                      </div>
+                                    </div>
+
+                                    <!-- Image File Field -->
+                                    <div class="row mb-3">
+                                      <div class="col">
+                                        <input
+                                          class="form-control"
+                                          type="file"
+                                          name="image_path"
+                                          id="image_path"
+                                          accept="image/*"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="row pt-5 pb-2">
+                                      <div class="col">
+                                        <h5>Set Reminder</h5>
+                                      </div>
+                                    </div>
+                                    <hr />
+                                    <!-- Deadline Date and Time Fields -->
+                                    <div class="row mb-3">
+                                      <div class="col-sm-6">
+                                        <input
+                                          class="form-control"
+                                          type="date"
+                                          name="deadline_date"
+                                          id="deadline_date"
+                                        />
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <input
+                                          class="form-control"
+                                          type="time"
+                                          name="deadline_time"
+                                          id="deadline_time"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- Modal Footer -->
+                                  <div class="modal-footer">
+                                    <button
+                                      id="modal_close"
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      Close
+                                    </button>
+                                    <button
+                                      class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                                      type="submit"
+                                      id="submitBtn"
+                                    >
+                                      UPDATE
+                                    </button>
+                                  </div>
+                                </form>
+                                <!-- End Slides Form -->
+                              </div>
+                            </div>
+                          </div>
+                          <!-- end second modal -->
+                          <!-- NOTIFICATION DUE MODAL -->
+                          <!-- Button trigger modal -->
+
+                          <!-- Search Form -->
+                          <div
+                            class="col text-center justify-content-center px-5 mx-5"
+                          >
+                            <form id="form_search">
+                              <div class="row">
+                                <div
+                                  class="col-md-9 mb-1 position-relative d-flex"
+                                >
+                                  <input
+                                    id="searchInput"
+                                    class="form-control"
+                                    type="text"
+                                    name="keyword"
+                                    placeholder="Search Keyword"
+                                    aria-autocomplete="list"
+                                    aria-controls="suggestions"
+                                    autocomplete="off"
+                                  />
+                                </div>
+                                <div class="col-md-3 d-flex">
+                                  <button
+                                    id="btnsearch"
+                                    class="btn w-100 text-white"
+                                    type="submit"
+                                  >
+                                    Search
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+
+                          <hr />
+                        </div>
+                        <div class="col">
+                          <br />
+                          <br />
+                          <div class="container">
+                            <!-- Notifications -->
+                            <div
+                              class="alert alert-success d-none"
+                              role="alert"
+                            ></div>
+                            <div
+                              class="alert alert-danger d-none"
+                              role="alert"
+                            ></div>
+
+                            <!-- Get All Data -->
+                            <div class="col-12">
+                              <div class="row pb-5" id="get_data"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Floating Button and modal-->
+                      <a
+                        href="#"
+                        class="btn floating-btn"
+                        id="add-btn"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#form_modal"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="60"
+                          height="60"
+                          fill="#rgb(167, 118, 185);"
+                          class="bi bi-plus-circle-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- End of Content -->
+        </main>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
