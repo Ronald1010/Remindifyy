@@ -55,13 +55,14 @@ body {
   border: 2px solid white;
 }
 #span {
-  margin-left: 20px;
+  margin-left: 35px;
 
   margin-top: 10px;
 }
 #span #user_logged {
   color: rgb(255, 255, 255);
   font-weight: bold;
+  font-family: "sans-serif";
 }
 /* search button */
 #btnsearch {
