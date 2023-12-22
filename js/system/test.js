@@ -459,32 +459,67 @@ function createCard(element) {
       });
     }
   }
-  // DUEDATE NOTIFICATION
+
+  // DUEDATE NOTIFICATION - Display notification 5 minutes before the deadline
   if (element.deadline_date && element.deadline_time) {
     const dueDateTime = new Date(
       `${element.deadline_date}T${element.deadline_time}`
     );
     const timeDifference = dueDateTime.getTime() - Date.now(); // Get time difference in milliseconds
 
-    const threshold = 60 * 1000; // Threshold set to one minute (60 seconds) before the due date
+    const fiveMinutes = 5 * 60 * 1000; // Five minutes in milliseconds
 
-    if (timeDifference > 0 && timeDifference <= threshold) {
-      showPopupNotification(element.task_name, timeDifference);
+    if (timeDifference > 0 && timeDifference <= fiveMinutes) {
+      showNotification(element.task_name, timeDifference);
     }
   }
 
   return itemDiv;
 }
 
-// Function to show the notification// Function to show the popup notification
-function showPopupNotification(taskName, timeDifference) {
+// FUNCTION TO SHOW NOTIF IN BROWSER
+function showNotification(taskName, timeDifference) {
   const secondsRemaining = Math.floor(timeDifference / 1000);
-  const popupMessage = `Upcoming Task: ${taskName}\nDue in ${secondsRemaining} second${
-    secondsRemaining !== 1 ? "s" : ""
-  }.`;
 
-  // Show the popup notification using JavaScript's alert function
-  alert(popupMessage);
+  // Check if the browser supports notifications
+  if (!("Notification" in window)) {
+    console.error("This browser does not support system notifications");
+    return;
+  }
+
+  // Check if permission to display notifications is granted
+  if (Notification.permission === "granted") {
+    // Create and display the notification with an icon
+    const notification = new Notification("Upcoming Task", {
+      body: `Task: ${taskName} due in ${secondsRemaining} second${
+        secondsRemaining !== 1 ? "s" : ""
+      }.`,
+      icon: "assets/img/logo.png", // Replace 'path_to_your_icon.png' with the actual path to your icon
+    });
+
+    // Automatically close the notification after a delay (e.g., 5 seconds)
+    setTimeout(() => {
+      notification.close();
+    }, 5000);
+  } else if (Notification.permission !== "denied") {
+    // Ask for permission to display notifications
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        // Create and display the notification with an icon
+        const notification = new Notification("Upcoming Task", {
+          body: `Task: ${taskName} due in ${secondsRemaining} second${
+            secondsRemaining !== 1 ? "s" : ""
+          }.`,
+          icon: "assets/img/logo.png", // Replace 'path_to_your_icon.png' with the actual path to your icon
+        });
+
+        // Automatically close the notification after a delay (e.g., 5 seconds)
+        setTimeout(() => {
+          notification.close();
+        }, 5000);
+      }
+    });
+  }
 }
 
 //

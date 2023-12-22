@@ -54,16 +54,17 @@ body {
   border-radius: 20px;
   border: 2px solid white;
 }
-#span {
+
+/* #span {
   margin-left: 35px;
 
   margin-top: 10px;
-}
-#span #user_logged {
+} */
+/* #span #user_logged {
   color: rgb(255, 255, 255);
   font-weight: bold;
   font-family: "sans-serif";
-}
+} */
 /* search button */
 #btnsearch {
   background-color: rgb(167, 118, 185);
@@ -125,7 +126,12 @@ body {
   width: 300px;
   height: 300px;
 }
-
+@media screen and (max-width: 400px) {
+  #profile_image {
+    width: 200px;
+    height: 200px;
+  }
+}
 /* #layoutAuthentication #layoutAuthentication_content {
   background-image: url(/assets/gif/4RNk.gif);
 } */
