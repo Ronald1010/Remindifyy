@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Backend URL
-const backendURL = "http://backend.test";
+// const backendURL = "http://backend.test";
+const backendURL = "https://remindify-backend-production.up.railway.app";
 
 // Get Logged User Profile
 async function getLoggedUser() {
